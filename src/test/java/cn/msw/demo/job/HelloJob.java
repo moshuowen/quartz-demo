@@ -2,28 +2,33 @@ package cn.msw.demo.job;
 
 import org.quartz.*;
 
-import java.util.Date;
-
 //@DisallowConcurrentExecution
 public class HelloJob implements Job {
     /**
      * 执行任务
      * @param context 任务上下文
-     * @throws JobExecutionException 任务执行异常
      */
     @Override
-    public void execute(JobExecutionContext context) throws JobExecutionException {
+    public void execute(JobExecutionContext context) {
         // 获取任务详情
         JobDetail jobDetail = context.getJobDetail();
+        Trigger trigger = context.getTrigger();
+
+        JobDataMap jobDataMap = trigger.getJobDataMap();
+        String triggerJobDataMap = jobDataMap.getString("name");
 
         // 获取任务名称
         String jobName = jobDetail.getKey().getName();
 
         // 获取任务组名
         String jobGroup = jobDetail.getKey().getGroup();
+
+        String jobDataMapName = String.valueOf(jobDetail.getJobDataMap().get("name"));
+
         // 打印
-        System.out.println("jobName: " + jobName + ", jobGroup: " + jobGroup);
-        System.out.println(new Date());
+        System.out.println("jobName: " + jobName + ", jobGroup: " + jobGroup +
+                ", triggerJobDataMap: " + triggerJobDataMap +
+                ", jobDataMapName: " + jobDataMapName);
 
         // 睡眠3s
         try {
