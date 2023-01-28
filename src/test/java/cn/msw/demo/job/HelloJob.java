@@ -1,12 +1,10 @@
 package cn.msw.demo.job;
 
-import org.quartz.Job;
-import org.quartz.JobDetail;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
+import org.quartz.*;
 
 import java.util.Date;
 
+//@DisallowConcurrentExecution
 public class HelloJob implements Job {
     /**
      * 执行任务
@@ -26,6 +24,13 @@ public class HelloJob implements Job {
         // 打印
         System.out.println("jobName: " + jobName + ", jobGroup: " + jobGroup);
         System.out.println(new Date());
+
+        // 睡眠3s
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
     }
