@@ -23,12 +23,16 @@ public class HelloJob implements Job {
         // 获取任务组名
         String jobGroup = jobDetail.getKey().getGroup();
 
+        // 会以trigger的JobDataMap为准
+        String name = String.valueOf(context.getMergedJobDataMap().get("name"));
+
         String jobDataMapName = String.valueOf(jobDetail.getJobDataMap().get("name"));
 
         // 打印
         System.out.println("jobName: " + jobName + ", jobGroup: " + jobGroup +
                 ", triggerJobDataMap: " + triggerJobDataMap +
-                ", jobDataMapName: " + jobDataMapName);
+                ", jobDataMapName: " + jobDataMapName +
+                ", merge: " + name);
 
         // 睡眠3s
         try {

@@ -22,6 +22,7 @@ public class Main {
         JobDetail jobDetail = JobBuilder.newJob(HelloJob.class)
                 // 拿到jobDataMap
                 .usingJobData("name", "msw")
+                .usingJobData("name", "moshuowen")
                 .withIdentity("job1", "group1")
                 .build();
         // 将任务和触发器注册到调度器中
